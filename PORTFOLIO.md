@@ -1,4 +1,7 @@
 ![工作坊完成徽章](https://img.shields.io/badge/GitHub_Copilot_實戰工作坊-已完成-1F883D?style=for-the-badge&logo=githubcopilot&logoColor=white)
+![Agent Mode](https://img.shields.io/badge/Agent_Mode-已實作-1E2761?style=flat-square)
+![MCP](https://img.shields.io/badge/MCP-已整合-1E2761?style=flat-square)
+![Agentic Workflow](https://img.shields.io/badge/Agentic_Workflow-已建立-1E2761?style=flat-square)
 
 # 待辦清單 Web App
 
