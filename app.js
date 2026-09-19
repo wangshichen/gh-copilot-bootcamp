@@ -1,4 +1,5 @@
 const STORAGE_KEY = "todo-list-items";
+const FILTER_STORAGE_KEY = "todo-list-filter";
 
 const todoForm = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo-input");
@@ -10,7 +11,7 @@ const themeToggle = document.querySelector("#theme-toggle");
 const filterButtons = document.querySelectorAll(".filter-button");
 
 let todos = loadTodos();
-let currentFilter = "all";
+let currentFilter = loadFilter();
 
 const themeStorageKey = "todo-list-theme";
 const themeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -28,6 +29,15 @@ function loadTodos() {
 // 將目前清單保存，讓重新整理後仍能保留資料。
 function saveTodos() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+}
+
+function loadFilter() {
+  const savedFilter = localStorage.getItem(FILTER_STORAGE_KEY);
+  return ["all", "active", "completed"].includes(savedFilter) ? savedFilter : "all";
+}
+
+function saveFilter() {
+  localStorage.setItem(FILTER_STORAGE_KEY, currentFilter);
 }
 
 function getCurrentTheme() {
@@ -101,6 +111,14 @@ function renderTodos() {
   clearCompletedButton.hidden = !todos.some((todo) => todo.completed);
 }
 
+function updateFilterButtons() {
+  filterButtons.forEach((filterButton) => {
+    const isActive = filterButton.dataset.filter === currentFilter;
+    filterButton.classList.toggle("is-active", isActive);
+    filterButton.setAttribute("aria-pressed", String(isActive));
+  });
+}
+
 function addTodo(text) {
   todos.push({
     id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
@@ -161,11 +179,8 @@ themeToggle.addEventListener("click", () => {
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     currentFilter = button.dataset.filter;
-    filterButtons.forEach((filterButton) => {
-      const isActive = filterButton === button;
-      filterButton.classList.toggle("is-active", isActive);
-      filterButton.setAttribute("aria-pressed", String(isActive));
-    });
+    saveFilter();
+    updateFilterButtons();
     renderTodos();
   });
 });
@@ -178,4 +193,5 @@ themeMediaQuery.addEventListener("change", () => {
 });
 
 applyTheme(getCurrentTheme());
+updateFilterButtons();
 renderTodos();
