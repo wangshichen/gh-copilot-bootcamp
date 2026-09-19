@@ -54,10 +54,10 @@ function getFilteredTodos() {
 
 function getEmptyMessage() {
   if (currentFilter === "active") {
-    return "目前沒有未完成的待辦事項。";
+    return "目前沒有未完成的待辦事項，項目可能已被目前的篩選條件排除。";
   }
   if (currentFilter === "completed") {
-    return "目前沒有已完成的待辦事項。";
+    return "目前沒有已完成的待辦事項，項目可能已被目前的篩選條件排除。";
   }
   return "還沒有任何待辦事項,新增一個吧!";
 }
