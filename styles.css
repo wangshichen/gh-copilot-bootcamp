@@ -1,6 +1,7 @@
 :root {
   --color-page: #f4f1eb;
   --color-card: #fffdf9;
+  --color-surface: #fff;
   --color-ink: #253238;
   --color-muted: #7b8584;
   --color-line: #e6e2d9;
@@ -11,6 +12,36 @@
   --shadow-card: 0 18px 45px rgba(68, 59, 47, 0.12);
   --radius-card: 22px;
   --radius-control: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-page: #182326;
+    --color-card: #223136;
+    --color-surface: #2a3a3e;
+    --color-ink: #edf3ef;
+    --color-muted: #a7b7b3;
+    --color-line: #405256;
+    --color-accent: #e58a6b;
+    --color-accent-dark: #f0a185;
+    --color-accent-soft: #50382f;
+    --color-focus: #72b9ad;
+    --shadow-card: 0 18px 45px rgba(0, 0, 0, 0.28);
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-page: #182326;
+  --color-card: #223136;
+  --color-surface: #2a3a3e;
+  --color-ink: #edf3ef;
+  --color-muted: #a7b7b3;
+  --color-line: #405256;
+  --color-accent: #e58a6b;
+  --color-accent-dark: #f0a185;
+  --color-accent-soft: #50382f;
+  --color-focus: #72b9ad;
+  --shadow-card: 0 18px 45px rgba(0, 0, 0, 0.28);
 }
 
 * {
@@ -55,6 +86,13 @@ button {
   margin-bottom: 28px;
 }
 
+.title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
 .eyebrow {
   margin: 0 0 10px;
   color: var(--color-accent);
@@ -77,6 +115,23 @@ h1 {
   font-size: 0.95rem;
 }
 
+.theme-toggle {
+  flex: 0 0 auto;
+  padding: 8px 10px;
+  color: var(--color-ink);
+  background: var(--color-accent-soft);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  border-color: var(--color-accent);
+}
+
 .todo-form {
   display: flex;
   gap: 10px;
@@ -87,7 +142,7 @@ h1 {
   flex: 1;
   padding: 13px 15px;
   color: var(--color-ink);
-  background: #fff;
+  background: var(--color-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-control);
   outline: none;
@@ -107,6 +162,34 @@ h1 {
   border-radius: var(--radius-control);
   font-weight: 700;
   transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.filter-button {
+  padding: 7px 13px;
+  color: var(--color-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.86rem;
+}
+
+.filter-button:hover,
+.filter-button:focus-visible {
+  color: var(--color-ink);
+  border-color: var(--color-line);
+}
+
+.filter-button.is-active {
+  color: var(--color-focus);
+  background: var(--color-accent-soft);
+  border-color: var(--color-focus);
+  font-weight: 700;
 }
 
 .todo-form button:hover,
@@ -131,7 +214,7 @@ h1 {
   align-items: center;
   gap: 12px;
   padding: 13px 12px 13px 14px;
-  background: #fff;
+  background: var(--color-surface);
   border: 1px solid var(--color-line);
   border-radius: var(--radius-control);
   animation: reveal 220ms ease both;
@@ -233,6 +316,11 @@ h1 {
   .todo-card {
     padding: 28px 20px;
     border-radius: 18px;
+  }
+
+  .theme-toggle {
+    max-width: 128px;
+    white-space: normal;
   }
 
   .todo-form {
